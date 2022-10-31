@@ -6,11 +6,10 @@ import time
 import requests
 
 url_root = 'https://copymanga.site'
-scroll_time = 300
+scroll_time = 200
 proxies = {
-    "http": "http://127.0.0.1:7890",
-    "https": "http://127.0.0.1:7890"
 }
+
 
 def download_comic(comic_name, comic_path):
     chapter_list = get_comic_chapter(comic_name, comic_path)
@@ -92,8 +91,8 @@ def get_chapter_piclist(comic_name, chapter_name, chapter_url):
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--ignore-ssl-errors')
-    # options.add_argument('--headless')
-    # options.add_argument('--disable-gpu')
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
     driver = webdriver.Chrome(executable_path="chromedriver", options=options)
     driver.get(chapter_url)
     time.sleep(3)
@@ -102,7 +101,7 @@ def get_chapter_piclist(comic_name, chapter_name, chapter_url):
         scroll += 250
         js = "var q=document.documentElement.scrollTop={}".format(scroll)
         driver.execute_script(js)
-        time.sleep(0.15)
+        time.sleep(0.1)
     time.sleep(3)
     chapter_html_url = "temp/_{}/_{}.html".format(
         comic_name, chapter_name)
