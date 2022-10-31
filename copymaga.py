@@ -6,7 +6,7 @@ import time
 import requests
 
 url_root = 'https://copymanga.site'
-scroll_time = 200
+scroll_time = 400
 proxies = {
 }
 
@@ -160,7 +160,10 @@ while(1):
     index = 0
     for i in comic_list:
         index += 1
-        print(str(index) + ' ' + i['name'] + ': ' + i['alias'])
+        if i['alias']:
+            print(str(index) + ' ' + i['name'] + ': ' + i['alias'])
+        else:
+            print(str(index) + ' ' + i['name'])
 
     choose = input("下载哪个漫画？（请输入下载漫画的序号）")
     try:
